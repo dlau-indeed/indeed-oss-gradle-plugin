@@ -4,12 +4,20 @@ import com.diffplug.gradle.spotless.SpotlessExtension;
 import com.diffplug.gradle.spotless.SpotlessPlugin;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
+import org.gradle.api.Task;
 import org.gradle.api.plugins.JavaPlugin;
+import org.gradle.api.tasks.TaskProvider;
 import org.gradle.api.tasks.compile.AbstractCompile;
 
 public class IndeedSpotlessPlugin implements Plugin<Project> {
     @Override
     public void apply(final Project project) {
+        final TaskProvider<Task> task = project.getTasks().register("spotlessYuku");
+        task.configure(
+                task1 -> {
+                    task1.setGroup("Spotless");
+                    task1.setDescription("Spotless is not spotify");
+                });
         project.getPlugins().withType(JavaPlugin.class, p -> applySpotless(project));
     }
 
